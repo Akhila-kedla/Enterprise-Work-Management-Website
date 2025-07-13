@@ -7,5 +7,6 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: "./src/setupTests.js",
+    base: process.env.VITE_BASE_PATH || "/Enterprise-Work-Management-Website",
   },
 });
