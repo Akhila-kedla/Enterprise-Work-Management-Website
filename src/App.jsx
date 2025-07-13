@@ -5,74 +5,78 @@ import "react-toastify/dist/ReactToastify.css";
 
 import WelcomePage from "./pages/WelcomePage";
 import LoginPage from "./features/auth/LoginPage";
+import SignupPage from "./features/auth/SignupPage";
 import Dashboard from "./pages/Dashboard";
 import ProjectsPage from "./features/projects/ProjectsPage";
 import TasksPage from "./features/tasks/TasksPage";
 import UsersPage from "./features/users/UsersPage";
 import ReportsPage from "./pages/ReportsPage";
 import SettingsPage from "./pages/SettingsPage";
-import ProtectedRoute from "./components/ProtectedRoute";
-import SignupPage from "./features/auth/SignupPage";
+import Unauthorized from "./pages/Unauthorized";
+import PrivateRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
     <Router>
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<WelcomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
 
+        {/* Protected Routes */}
         <Route
           path="/dashboard"
           element={
-            <ProtectedRoute roles={["Admin", "Manager", "Employee"]}>
+            <PrivateRoute allowedRoles={["Admin", "Manager", "Employee"]}>
               <Dashboard />
-            </ProtectedRoute>
+            </PrivateRoute>
           }
         />
 
         <Route
           path="/projects"
           element={
-            <ProtectedRoute roles={["Admin", "Manager"]}>
+            <PrivateRoute allowedRoles={["Admin", "Manager"]}>
               <ProjectsPage />
-            </ProtectedRoute>
+            </PrivateRoute>
           }
         />
 
         <Route
           path="/tasks"
           element={
-            <ProtectedRoute roles={["Admin", "Manager", "Employee"]}>
+            <PrivateRoute allowedRoles={["Admin", "Manager", "Employee"]}>
               <TasksPage />
-            </ProtectedRoute>
+            </PrivateRoute>
           }
         />
 
         <Route
           path="/users"
           element={
-            <ProtectedRoute roles={["Admin"]}>
+            <PrivateRoute allowedRoles={["Admin"]}>
               <UsersPage />
-            </ProtectedRoute>
+            </PrivateRoute>
           }
         />
 
         <Route
           path="/reports"
           element={
-            <ProtectedRoute roles={["Admin", "Manager"]}>
+            <PrivateRoute allowedRoles={["Admin", "Manager"]}>
               <ReportsPage />
-            </ProtectedRoute>
+            </PrivateRoute>
           }
         />
 
         <Route
           path="/settings"
           element={
-            <ProtectedRoute roles={["Admin", "Manager", "Employee"]}>
+            <PrivateRoute allowedRoles={["Admin", "Manager", "Employee"]}>
               <SettingsPage />
-            </ProtectedRoute>
+            </PrivateRoute>
           }
         />
       </Routes>
